@@ -1,0 +1,8 @@
+@app.route('/delete_note/<int:note_id>', methods=['DELETE'])
+def delete_note(note_id):
+    note = session.query(Note).filter_by(id=note_id).first()
+    if note:
+        session.delete(note)
+        session.commit()
+        return jsonify({"message": "Note deleted successfully!"}), 200
+    return jsonify({"error": "Note not found!"}), 404
