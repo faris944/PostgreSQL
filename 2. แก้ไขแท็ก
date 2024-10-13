@@ -1,0 +1,8 @@
+@app.route('/edit_tag/<int:tag_id>', methods=['PUT'])
+def edit_tag(tag_id):
+    tag = session.query(Tag).filter_by(id=tag_id).first()
+    if tag:
+        tag.name = request.json.get('name')
+        session.commit()
+        return jsonify({"message": "Tag updated successfully!"}), 200
+    return jsonify({"error": "Tag not found!"}), 404
