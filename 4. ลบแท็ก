@@ -1,0 +1,8 @@
+@app.route('/delete_tag/<int:tag_id>', methods=['DELETE'])
+def delete_tag(tag_id):
+    tag = session.query(Tag).filter_by(id=tag_id).first()
+    if tag:
+        session.delete(tag)
+        session.commit()
+        return jsonify({"message": "Tag deleted successfully!"}), 200
+    return jsonify({"error": "Tag not found!"}), 404
